@@ -1,0 +1,15 @@
+# Ignore everything
+**
+
+# include metadata
+!package.json
+!yarn.lock
+!.yarnrc.yml
+
+# include some .yarn subfolders
+!.yarn/code
+!.yarn/unplugged
+
+# include code
+!app.js
+!lib
