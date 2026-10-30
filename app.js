@@ -43,7 +43,11 @@ try {
 }
 
 const app = express()
-app.use(morgan('combined'))
+app.use(
+  morgan('combined', {
+    skip: (req, res) => req.originalUrl === '/api/health' && res.statusCode < 400,
+  })
+)
 app.set('trust proxy', 1)
 app.set('x-powered-by', false)
 app.set('etag', false)
