@@ -30,13 +30,15 @@ FROM base AS builder
 WORKDIR /target/app
 
 COPY --chown=1000:1000 .yarnrc.yml package.json yarn.lock ./
-COPY --chown=1000:1000 .yarn ./.yarn
 
-RUN --mount=type=cache,target=/root/.yarn/berry/cache \
-    npm install -g corepack && corepack enable \
-    && yarn install --immutable
+RUN --mount=type=cache,target=/root/.npm \
+    --mount=type=cache,target=/root/.yarn/berry/cache \
+    npm install -g corepack \
+    && corepack enable \
+    && yarn install --immutable \
+    && yarn workspaces focus --production
 
-COPY --chown=1000:1000 app.js .
+COPY --chown=1000:1000 app.js health-check.js create-token.js ./
 COPY --chown=1000:1000 lib ./lib/
 
 FROM scratch AS runner
@@ -46,7 +48,8 @@ COPY --from=builder /target /
 ARG PORT=3000
 
 ENV NODE_ENV="production" \
-    PORT=${PORT}
+    PORT=${PORT} \
+    DB_FILE=/home/node/cache.db
 
 WORKDIR /app
 
@@ -56,6 +59,7 @@ VOLUME ["/home/node"]
 
 EXPOSE ${PORT}
 
-ENTRYPOINT [ "tini", "--"]
-CMD ["node", "--require=/app/.pnp.cjs", "--loader=/app/.pnp.loader.mjs", "app.js"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s CMD ["node", "health-check.js"]
 
+ENTRYPOINT [ "tini", "--"]
+CMD ["node", "app.js"]

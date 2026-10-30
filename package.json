@@ -6,11 +6,13 @@
   "description": "Nexus integration server",
   "main": "app.js",
   "scripts": {
-    "start": "yarn node app.js"
+    "start": "node app.js",
+    "create-token": "node create-token.js"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",
     "express": "^5.3.0",
+    "jose": "^6.2.14",
     "morgan": "^1.12.1",
     "node-cron": "^4.6.0"
   },

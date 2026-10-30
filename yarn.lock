@@ -448,6 +448,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jose@npm:^6.2.14":
+  version: 6.2.14
+  resolution: "jose@npm:6.2.14"
+  checksum: 10c0/3db121220793e391c24803edae1ede848e7a67e2c3d37f9864f3e3e245c4b2d318f176d17f0f8ab02be07e210a3db5453612c8d5716af2deeaaa4e5d50e70641
+  languageName: node
+  linkType: hard
+
 "math-intrinsics@npm:^1.1.0":
   version: 1.1.0
   resolution: "math-intrinsics@npm:1.1.0"
@@ -543,6 +550,7 @@ __metadata:
   dependencies:
     better-sqlite3: "npm:^13.0.3"
     express: "npm:^5.3.0"
+    jose: "npm:^6.2.14"
     morgan: "npm:^1.12.1"
     node-cron: "npm:^4.6.0"
   languageName: unknown
