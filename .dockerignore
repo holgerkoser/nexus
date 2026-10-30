@@ -12,4 +12,6 @@
 
 # include code
 !app.js
+!health-check.js
+!create-token.js
 !lib
